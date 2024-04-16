@@ -4,7 +4,7 @@ CC?=clang
 CFLAGS=-target wasm32-unknown-unknown -nostdlib
 LDFLAGS=-Wl,--no-entry -mexec-model=reactor
 
-plugin: $(OBJ)
+build: $(OBJ)
 	$(CC) $(CFLAGS) $(LDFLAGS) -Wl,--export=hello $(OBJ) -o plugin.wasm
 
 test:
