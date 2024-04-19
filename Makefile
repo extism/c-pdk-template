@@ -1,11 +1,17 @@
-SRC=src/plugin.c
-OBJ=$(SRC:.c=.o)
-CC?=clang
-CFLAGS=-target wasm32-unknown-unknown -nostdlib
+# C compiler and target
+CC=clang
+TARGET=wasm32-unknown-unknown
+
+# C compiler and linker flags
+CFLAGS=-target $(TARGET) -nostdlib
 LDFLAGS=-Wl,--no-entry -mexec-model=reactor
 
+# List source files
+SRC=src/plugin.c
+OBJ=$(SRC:.c=.o)
+
 build: $(OBJ)
-	$(CC) $(CFLAGS) $(LDFLAGS) -Wl,--export=hello $(OBJ) -o plugin.wasm
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) -o plugin.wasm -Wl,--export=hello
 
 test:
 	extism call plugin.wasm hello
