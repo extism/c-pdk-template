@@ -13,8 +13,11 @@ OBJ=$(SRC:.c=.o)
 build: $(OBJ)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) -o plugin.wasm -Wl,--export=hello
 
-test:
+test: build
 	extism call plugin.wasm hello
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
+
+clean:
+	rm -f $(OBJ)
